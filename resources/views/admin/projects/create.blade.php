@@ -10,7 +10,7 @@
 <div class="container py-5">
     @include('partials.validation-message')
 
-    <form action="{{route('admin.projects.store')}}" method="post" enctype="multipart/from-data">
+    <form action="{{route('admin.projects.store')}}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -45,7 +45,8 @@
                 <option selected disabled>Select the Category of the Project</option>
                 @foreach ($categories as $category)
                     <option value="{{$category->id}}" {{$category->id == old('category_id') ? 'selected' : ''}}>
-                        {{$category->name}}</option>
+                        {{$category->name}}
+                    </option>
                 @endforeach
             </select>
         </div>

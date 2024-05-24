@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreProjectRequest extends FormRequest
             'category_id' => 'nullable|exists:categories,id',
             'title' => 'required|min:5|max:150',
             'content' => 'nullable',
-            'cover_image' => 'nullable|image|max:500',
+            'cover_image' => 'nullable|max:500',
         ];
     }
 }

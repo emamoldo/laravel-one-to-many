@@ -10,14 +10,15 @@
     @include('partials.validation-message')
     @include('partials.session-message')
 
-    <form action="{{route('admin.projects.update', $project)}}" method="post" enctype="multipart/from-data">
+    <form action="{{route('admin.projects.update', $project)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title"
-                aria-describedby="titleHelper" placeholder="Title of the Project" value="{{old('title')}}" />
+                aria-describedby="titleHelper" placeholder="Title of the Project"
+                value="{{old('title', $project->title)}}" />
             <small id="titleHelper" class="form-text text-muted">Type the title of the Project</small>
             @error('title')
                 <div class="text-danger ">
@@ -37,7 +38,7 @@
             <label for="cover_image" class="form-label">Update Image</label>
             <input type="file" class="form-control @error('cover_image') is-invalid @enderror" name="cover_image"
                 id="cover_image" aria-describedby="cover_imageHelper" placeholder="Title of the Project"
-                value="{{old('cover_image')}}" />
+                value="{{old('cover_image', $project->cover_image)}}" />
             <small id="cover_imageHelper" class="form-text text-muted">Add the cover image of the Project</small>
             @error('cover_image')
                 <div class="text-danger ">
@@ -51,17 +52,18 @@
             <select class="form-select" name="category_id" id="category_id">
                 <option selected disabled>Select the Category of the Project</option>
                 @foreach ($categories as $category)
-                    <option value="{{$category->id}}" {{$category->id == old('category_id') ? 'selected' : ''}}>
+                    <option value="{{$category->id}}" {{$category->id == old('category_id', $category->id) ? 'selected' : ''}}>
                         {{$category->name}}
                     </option>
                 @endforeach
             </select>
+
         </div>
 
         <div class="mb-3">
             <label for="content" class="form-label">Content</label> <br>
             <textarea class="form.control @error('content') is-invalid @enderror" name="content" id="content"
-                rows="5">{{old('content')}}</textarea>
+                rows="5">{{old('content', $project->content)}}</textarea>
             @error('content')
                 <div class="text-danger ">
                     {{$message}}

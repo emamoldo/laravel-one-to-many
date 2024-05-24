@@ -64,7 +64,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $categories = Category::all();
-        return view('admin.projects.edit', compact('project'));
+        // dd($categories);
+        return view('admin.projects.edit', compact('project', 'categories'));
     }
 
     /**
@@ -77,10 +78,11 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title, '-');
         $validated['slug'] = $slug;
 
-        $project->update($validated);
-        return to_route('admin.projects.edit', $project)->with('message', "Project $project->title Updated");
 
-        if ($request->has('cover_image')) {
+        /*dump($request->has('cover_image'));
+        dump($validated['cover_image']);*/
+
+        if ($request->has('cover_image') && $validated['cover_image']) {
             if ($project->cover_image) {
                 Storage::delete($project->cover_image);
             }
@@ -88,6 +90,9 @@ class ProjectController extends Controller
             $image_path = Storage::put('uploads', $validated['cover_image']);
             $validated['cover_image'] = $image_path;
         }
+
+        $project->update($validated);
+        return to_route('admin.projects.edit', $project)->with('message', "Project $project->title Updated");
     }
 
     /**
