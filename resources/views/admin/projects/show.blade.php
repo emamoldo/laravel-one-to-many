@@ -15,6 +15,9 @@
                 <img width="150" loading="lazy" src="{{asset('storage/' . $project->cover_image)}}" alt="">
             @endif
 
+            <div class="metadata">
+                <strong>Category</strong> {{$project->category ? $project->category->name : 'Uncategorized'}}
+            </div>
             <p>{{$project->content}}</p>
         </div>
     </div>

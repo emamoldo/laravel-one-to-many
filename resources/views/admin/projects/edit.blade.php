@@ -46,7 +46,17 @@
             @enderror
         </div>
 
-
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Category</label>
+            <select class="form-select" name="category_id" id="category_id">
+                <option selected disabled>Select the Category of the Project</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}" {{$category->id == old('category_id') ? 'selected' : ''}}>
+                        {{$category->name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="mb-3">
             <label for="content" class="form-label">Content</label> <br>
